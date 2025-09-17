@@ -74,8 +74,8 @@ Once running, the following services are available:
 - Click **Issue**
 
 ### 3. Holder: Store credential
-- In **Demo Wallet** → Import credential (automatically via link, or paste JSON if provided)
-- The student selects the DID to which the credential wil be issued
+- In **Dev Wallet** → Import credential (automatically via link, or paste JSON if provided)
+- The student selects the DID to which the credential will be issued
 - The student accepts or rejects the offer
 
 ### 4. Verifier: Request proof & verify
@@ -111,7 +111,7 @@ Once running, the following services are available:
 
 ## ⚠️ Troubleshooting
 
-- **Demo Wallet shows `500: can't access property "id"`**  
+- **Dev Wallet shows `500: can't access property "id"`**  
   Ensure `.env` contains:
   ```env
   NUXT_PUBLIC_WALLET=http://localhost:7001
