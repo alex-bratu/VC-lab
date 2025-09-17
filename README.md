@@ -24,7 +24,7 @@ docker compose version
 1. **Clone this repository**:
    ```bash
    git clone https://github.com/RalucaaP/VC-lab.git
-   cd VC-lab/waltid-identity/docker-compose
+   cd VC-lab/docker-compose
    ```
 
 2. **Start all services**:
@@ -51,33 +51,40 @@ Once running, the following services are available:
 | Demo Wallet (UI)        | Holder wallet    | http://localhost:7101        | 7101  |
 | Web Portal (UI)         | Issuer/Verifier  | http://localhost:7102        | 7102  |
 | VC Repository           | Credential store | http://localhost:7103        | 7103  |
-| Dev Wallet (optional UI)| Holder wallet    | http://localhost:7104        | 7104  |
+| Dev Wallet (UI)         | Holder wallet    | http://localhost:7104        | 7104  |
 
 ---
 
 ## Classroom Demo Flow
 
 ### 1. Holder: Create a DID
-- Open **Demo Wallet** → [http://localhost:7101](http://localhost:7101)  
-- Click **Create new identity**  
-- Copy your DID (e.g., `did:key:z6…`)
+- Open **Dev Wallet** → [http://localhost:7104](http://localhost:7104)  
+- Create an account and login
+- Click **View wallet** 
+- Click **DIDs**  
+- Copy your DID (e.g., `did:key:z6…`) or create a new one
 
 ### 2. Issuer: Issue a credential
-- Open **Web Portal** → [http://localhost:7102](http://localhost:7102)  
-- Select **Issuer** tab  
-- Choose a credential type (e.g., **StudentCard**)  
-- Paste the student’s DID as **subject**  
-- Fill in claims (`name`, `studentId`, `program`, …)  
+- Open **Web Portal** → [http://localhost:7102](http://localhost:7102)   
+- Choose a credential type (e.g., **EducationalID**)  
+- Press the **Start** button
+- Make sure you have selected the **Issue** tab
+- Paste the student’s DID as **id**  
+- Fill in claims 
 - Click **Issue**
 
 ### 3. Holder: Store credential
 - In **Demo Wallet** → Import credential (automatically via link, or paste JSON if provided)
+- The student selects the DID to which the credential wil be issued
+- The student accepts or rejects the offer
 
 ### 4. Verifier: Request proof & verify
-- In **Web Portal** → **Verifier** tab  
-- Create a verification request (e.g., prove `isStudent = true`)  
-- Student approves in **Demo Wallet**  
-- Result appears in Verifier: ✅ Valid / ❌ Invalid
+- In **Web Portal** → **Verify** tab  
+- Create a verification request
+- Copy verification offer URL 
+- Paste the offer URL in **Dev Wallet** 
+- Student selects the credential to be presented and accepts/rejects the request
+- Result appears in Verifier
 
 ---
 
