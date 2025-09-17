@@ -1,104 +1,134 @@
-<div align="center">
- <h1>Identity by walt.id</h1>
- <p>Multi-Platform libraries, powerful APIs and easy-to-use white label apps to build identity and wallet solutions.</p>
+# Verifiable Credentials Demo with walt.id
 
-<a href="https://walt.id/community">
-<img src="https://img.shields.io/badge/Join-The Community-blue.svg?style=flat" alt="Join community!" />
-</a>
-<a href="https://twitter.com/intent/follow?screen_name=walt_id">
-<img src="https://img.shields.io/twitter/follow/walt_id.svg?label=Follow%20@walt_id" alt="Follow @walt_id" />
-<img alt="GitHub commits since latest release" src="https://img.shields.io/github/commits-since/walt-id/waltid-identity/latest"></a>
-</div>
+This project is a **teaching demo** for Verifiable Credentials (VCs) using the [walt.id](https://walt.id) open-source identity framework.  
+It allows students to experience the **Issuer → Holder → Verifier** flow in a classroom environment.
+
+---
+
+## Requirements
+
+- Ubuntu 22.04+ Server
+- Docker & Docker Compose (v2+)
+- Git
+
+Check versions:
+```bash
+docker --version
+docker compose version
+```
+
+---
 
 ## Getting Started
 
-### Multi-Platform Libraries
+1. **Clone this repository**:
+   ```bash
+   git clone https://github.com/RalucaaP/VC-lab.git
+   cd VC-lab/waltid-identity/docker-compose
+   ```
 
-Available for Kotlin/Java and JavaScript environments.
+2. **Start all services**:
+   ```bash
+   docker compose up --build
+   ```
 
-- **Crypto** ([Docs](https://docs.oss.walt.id/issuer/sdks/manage-keys/overview) | [GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-libraries/crypto/waltid-crypto)) -
-  create and use keys based on different algorithms and KMS backends (in-memory, AWS, Hashicorp TSE, OCI)
-- **DID** ([Docs](https://docs.oss.walt.id/issuer/sdks/manage-dids/overview) | [GitHub](https://github.com/walt-id/waltid-identity/blob/main/waltid-libraries/waltid-did/README.md)) -
-  create, register, and resolve DIDs on different ecosystems.
-- **W3C Credentials** ([Docs](https://docs.oss.walt.id/issuer/sdks/manage-credentials/overview) | [GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-libraries/credentials/waltid-w3c-credentials)) -
-  issue and verify W3C credentials as JWTs and SD-JWTs.
-- **mdoc Credentials** ([GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-libraries/credentials/waltid-mdoc-credentials)) -
-  issue and verify mdoc credentials (mDL ISO/IEC 18013-5).
-- **OpenID4VC** ([GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-libraries/protocols/waltid-openid4vc)) -
-  implementation of the OID4VCI and OIDC4VP protocols.
-- **SD-JWT** ([GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-libraries/sdjwt/waltid-sdjwt)) -
-  create and verify Selective Disclosure JWTs.
-- **Ktor-Authnz** ([GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-libraries/auth/waltid-ktor-authnz)) - Add various authentication methods (OIDC, Email/Password, ...) to Ktor projects.
-- **Permissions** ([GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-libraries/auth/waltid-permissions)) - Enable fine-grained authorisation patterns in applications with waltid-permissions.
+3. **Check running containers**:
+   ```bash
+   docker compose ps
+   ```
 
-### REST Services
+---
 
-A set of APIs to build issuer, verifier, and wallet capabilities into any app.
+## Services & Endpoints
 
-- **Issuer API** ([Docs](https://docs.walt.id/issuer/api/getting-started) | [GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-services/waltid-issuer-api)) -
-  enable apps to issue credentials (W3C JWTs and SD-JWTs) via OID4VC.
-- **Verifier API**  ([Docs](https://docs.walt.id/verifier/api/getting-started) | [GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-services/waltid-verifier-api)) -
-  enable apps to verify credentials (W3C JWTs and SD-JWTs) via OID4VP/SIOPv2.
-- **Wallet API** ([Docs](https://docs.oss.walt.id/wallet/api/getting-started) | [GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-services/waltid-wallet-api)) -
-  extend apps with wallet capabilities to collect, store, manage and share identity credentials and tokens.
+Once running, the following services are available:
 
-### Apps
+| Service                 | Role             | URL                          | Port  |
+|-------------------------|------------------|------------------------------|-------|
+| Wallet API              | Holder backend   | http://localhost:7001        | 7001  |
+| Issuer API              | Issue VCs        | http://localhost:7002        | 7002  |
+| Verifier API            | Verify VCs       | http://localhost:7003        | 7003  |
+| Demo Wallet (UI)        | Holder wallet    | http://localhost:7101        | 7101  |
+| Web Portal (UI)         | Issuer/Verifier  | http://localhost:7102        | 7102  |
+| VC Repository           | Credential store | http://localhost:7103        | 7103  |
+| Dev Wallet (optional UI)| Holder wallet    | http://localhost:7104        | 7104  |
 
-A set of white-label apps to get started in no time.
+---
 
-- **Web-Wallets** ([Demo](https://wallet.walt.id/login) | [Docs](https://docs.walt.id/community-stack/wallet/apps/web-wallet/overview) | [GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-applications/waltid-web-wallet)) - Custodial web-wallet (PWA) solutions for credentials and tokens.
-- **Portal** ([Demo](https://portal.walt.id/) | [Docs](https://docs.walt.id/community-stack/issuer/apps/portal/overview) | [GitHub](https://github.com/walt-id/waltid-identity/tree/main/waltid-applications/waltid-web-portal)) - An issuer and verifier portal for credentials, which are managed [here](https://github.com/walt-id/waltid-credentials).
+## Classroom Demo Flow
 
+### 1. Holder: Create a DID
+- Open **Demo Wallet** → [http://localhost:7101](http://localhost:7101)  
+- Click **Create new identity**  
+- Copy your DID (e.g., `did:key:z6…`)
 
-## Use REST Services And Apps
+### 2. Issuer: Issue a credential
+- Open **Web Portal** → [http://localhost:7102](http://localhost:7102)  
+- Select **Issuer** tab  
+- Choose a credential type (e.g., **StudentCard**)  
+- Paste the student’s DID as **subject**  
+- Fill in claims (`name`, `studentId`, `program`, …)  
+- Click **Issue**
 
-Use the [walt.id identity package](https://github.com/walt-id/waltid-identity/tree/main/docker-compose) to run all APIs and Apps with docker:
+### 3. Holder: Store credential
+- In **Demo Wallet** → Import credential (automatically via link, or paste JSON if provided)
 
-**Clone walt.id identity**
+### 4. Verifier: Request proof & verify
+- In **Web Portal** → **Verifier** tab  
+- Create a verification request (e.g., prove `isStudent = true`)  
+- Student approves in **Demo Wallet**  
+- Result appears in Verifier: ✅ Valid / ❌ Invalid
 
-```bash
-git clone https://github.com/walt-id/waltid-identity.git && cd waltid-identity
-```
+---
 
-**Launch the services**
+## Useful Commands
 
-```bash
-cd docker-compose && docker compose up
-```
+- Stop all services:
+  ```bash
+  docker compose down
+  ```
 
-Learn more about the docker settings & exposed ports [here](https://github.com/walt-id/waltid-identity/tree/main/docker-compose).
+- Rebuild images (after `.env` changes):
+  ```bash
+  docker compose build
+  docker compose up
+  ```
 
-## Use the Command Line Tool
+- Kill all containers (hard reset):
+  ```bash
+  docker kill $(docker ps -q)
+  docker rm $(docker ps -aq)
+  ```
 
-Use the [walt.id CLI](https://github.com/walt-id/waltid-identity/tree/main/waltid-applications/waltid-cli) to run the
-core functions from
-the command line. Make sure you have your Java Runtime set up.
+---
 
-**Clone walt.id identity**
+## ⚠️ Troubleshooting
 
-```bash
-git clone https://github.com/walt-id/waltid-identity.git && cd waltid-identity
-```
+- **Demo Wallet shows `500: can't access property "id"`**  
+  Ensure `.env` contains:
+  ```env
+  NUXT_PUBLIC_WALLET=http://localhost:7001
+  NUXT_PUBLIC_ISSUER=http://localhost:7002
+  NUXT_PUBLIC_VERIFIER=http://localhost:7003
+  NUXT_PUBLIC_VC_REPO=http://localhost:7103
+  ```
+  Then rebuild:
+  ```bash
+  docker compose build waltid-demo-wallet
+  docker compose up
+  ```
 
-**Access CLI**
+- **Ports already in use** → Stop other apps using 7001–7104 or change ports in `.env`.
 
-```bash
-cd waltid-applications/waltid-cli && ./waltid-cli.sh
-```
+---
 
-## Architecture
+## Learning Objectives
 
-The walt.id identity repo is part of The Community Stack, walt.id's collection of open-source products to build identity and wallet
-solutions. Learn more [here](https://walt.id/blog/p/community-stack).
+- Understand the **roles**: Issuer, Holder, Verifier  
+- Experience how **DIDs** replace centralized identifiers  
+- See how **cryptographic verification** works without contacting the issuer  
+- Discuss **privacy-preserving proofs** (selective disclosure, minimal disclosure)
 
-![waltid-identity-architecture](https://github.com/user-attachments/assets/98c020fe-dc37-46fd-9886-613ee8fc8760)
+---
 
-## Join the community
-
-* Connect and get the latest updates: [Discord](https://discord.gg/AW8AgqJthZ) | [Newsletter](https://walt.id/newsletter) | [YouTube](https://www.youtube.com/channel/UCXfOzrv3PIvmur_CmwwmdLA) | [Twitter](https://mobile.twitter.com/walt_id)
-* Get help, request features and report bugs: [GitHub Issues ](https://github.com/walt-id/waltid-identity/issues)
-
-## License
-
-**Licensed under the [Apache License, Version 2.0](https://github.com/walt-id/waltid-ssikit/blob/master/LICENSE).**
-
+With this setup, every student group can play all three roles and complete the trust triangle!

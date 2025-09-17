@@ -5,7 +5,7 @@ services:
       - services
       - identity
       - all
-    pull_policy: missing
+    pull_policy: if_not_present
     depends_on:
       postgres:
         condition: service_healthy
@@ -26,7 +26,7 @@ services:
       - services
       - identity
       - all
-    pull_policy: missing
+    pull_policy: if_not_present
     depends_on:
       - caddy
     env_file:
@@ -40,7 +40,7 @@ services:
       - services
       - identity
       - all
-    pull_policy: missing
+    pull_policy: if_not_present
     depends_on:
       - caddy
     env_file:
@@ -56,7 +56,7 @@ services:
       - apps
       - identity
       - all
-    pull_policy: missing
+    pull_policy: if_not_present
     build:
       context: ../
       dockerfile: waltid-applications/waltid-web-wallet/apps/waltid-demo-wallet/Dockerfile
@@ -74,7 +74,7 @@ services:
       - apps
       - identity
       - all
-    pull_policy: missing
+    pull_policy: if_not_present
     build:
       context: ../
       dockerfile: waltid-applications/waltid-web-wallet/apps/waltid-dev-wallet/Dockerfile
@@ -92,7 +92,7 @@ services:
       - apps
       - identity
       - all
-    pull_policy: missing
+    pull_policy: if_not_present
     build:
       context: ../
       dockerfile: waltid-applications/waltid-web-portal/Dockerfile
@@ -112,7 +112,7 @@ services:
       - services
       - identity
       - all
-    pull_policy: missing
+    pull_policy: if_not_present
     depends_on:
       - caddy
     environment:
@@ -194,49 +194,41 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-
       - target: "$WALLET_BACKEND_PORT"
         published: $WALLET_BACKEND_PORT # wallet-api
         protocol: tcp
         mode: host
-
       - target: "$ISSUER_API_PORT"
         published: $ISSUER_API_PORT # issuer-api
         protocol: tcp
         mode: host
-
       - target: "$VERIFIER_API_PORT"
         published: $VERIFIER_API_PORT # verifier-api
         protocol: tcp
         mode: host
-
       - target: "$DEMO_WALLET_FRONTEND_PORT"
         published: $DEMO_WALLET_FRONTEND_PORT # waltid-demo-wallet
         protocol: tcp
         mode: host
-
       - target: "$DEV_WALLET_FRONTEND_PORT"
         published: $DEV_WALLET_FRONTEND_PORT # waltid-dev-wallet
         protocol: tcp
         mode: host
-
       - target: "$WEB_PORTAL_PORT"
         published: $WEB_PORTAL_PORT # web-portal
         protocol: tcp
         mode: host
-
       - target: "$VC_REPO_PORT"
         published: $VC_REPO_PORT # vc-repo
         protocol: tcp
         mode: host
-
       - target: "$PG_ADMIN_PORT"
         published: $PG_ADMIN_PORT # pg-admin
         protocol: tcp
         mode: host
-
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
+
 volumes:
   wallet-api-db:
   vault_data:
