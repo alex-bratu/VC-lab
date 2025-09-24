@@ -119,7 +119,7 @@ services:
       PORT: $VC_REPO_PORT
 
   postgres:
-    image: postgres
+    image: postgres:17
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-U", "$DB_USERNAME" ]
       interval: 5s
